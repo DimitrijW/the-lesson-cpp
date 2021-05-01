@@ -175,4 +175,19 @@ int main()
         }
         cout << "variabl i = " << i << endl;
     }
+
+    system("pause");
+    /*
+    *               goto -> lieber nicht verwenden
+    */
+
+    cout << "eins" << endl;
+    goto link;      // wird zwei, drei nicht ausgefürt geht gleich zum link 
+    cout << "zwei" << endl;
+    cout << "drei" << endl;
+    link:
+    cout << "vier" << endl;
+    cout << "fünf" << endl;
+
+
 }
