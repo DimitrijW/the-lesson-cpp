@@ -42,25 +42,78 @@ void Foo7(int& k, int& l, int& m)
 int main()
 {
     /*lesson #45 statische und dynamische speicher*/
+    /*             
+    *                    Arbeitsspeicher
+    *       _________________________________________________
+    *       |                                               |
+    *       | |----------|                                  |
+            | | PROGRAMM |                                  |
+            | |  stat.   |                                  |
+            | |  memory  |                                  |
+            | | v[100];  |                  hip             |
+            | |          |              -------------       |
+            | |        X-|--adressee----|-->        |       |
+            | |----------|              |   Daten   |       |
+            |                            -------------      |
+    *       |                        in C++ muss man am Ende lehren
+    *       |                        sonst leak memory, mit der Zeit keine Arbeitsspeicher 
+    *       |                                               |
+    *       |_______________________________________________|
+    */
     /*lessen #46 pointer*/
-    cout << endl << endl << "lesson #46" << endl;
+    /*
+    *           _________________________________________________
+    * 
+    * 
+    *                               ----------->*pa2 <--- wenn *pa2 = 2; dann a = 2; und *pa = 2; mitannander verbunden
+                                    ^      
+    *                               |
+    *                       | 0X000CD |-->--
+    *                       |   a = 5 |     | zeigt auf adressee wo ligt var. a
+                                |           |
+                    --<----------           v
+                    |                       |
+                    b = a                  *pa
+
+                _____________________________________________________
+    * 
+    * 
+    
+    */
     {
+        cout << endl << endl << "lesson #46" << endl;
+    
         int a = 5;
         cout << a << endl;  // 5
         int b = a;  // b = 5 
-        int* pa = &a;   // px zeigt auf adress wo liegt a "pointer type int, * variable type pointer, & operator adress"
+        int* pa = &a;   // pa zeigt auf adress wo liegt a "pointer type int, * variable type pointer, & operator adress"
+        //double* px = &a;  // type pointer muss gleichen type sein auf die Daten er zeigt
 
-        //double* px = &a; type pointer muss gleichen type sein auf die Daten er zeigt
         cout << pa << endl; // 00AFF754 16bit adresse wo liegt a. Die Adresse wird immer verschieden sein
         cout << *pa << endl;    // 5 
         int* pa2 = &a;
+
+        cout << "pa " << pa << endl;    // 00AFF754
+        cout << "pa2 " << pa2 << endl;  // 00AFF754
+
         cout << *pa2 << endl;   // adressen von liegt a werden gleich sein
         *pa2 = 2;
         cout << a << endl;  // 2
         cout << *pa << endl;    // 2
         // Die Variable a kann über a und durch adresse *pa und *pa2
+    }
 
         /*lesson #47 pointer und array*/
+    /*
+    *           _____ arr name des Vektors ist pointer auf erste Element
+    *          |    ________
+    *          V   V        *(arr + 1) datentype int (4 byte) wird verschoben 
+    *       ---------------------   *(arr + 2) nach 8 byte vird verschoben cout 79 
+    *       | 0 | 1 | 2 | 3 | 4 |
+    *       | 4 | 55| 79| 1 | 4 |
+    *       ---------------------
+    */
+    {
         cout << endl << endl << "lesson #47" << endl;
         const int SIZE = 5;
         int arr[SIZE]{ 4, 55, 79, 1, 4 };   // name array - arr - ist pointer auf erste element
@@ -81,7 +134,7 @@ int main()
 
         for (int i = 0; i < SIZE; i++)
         {
-            cout << *(pArr + i) << endl;
+            cout << *(pArr + i) << endl;    // 
         }
 
         cout << *arr << endl;   // 4 erste Element in array wenn wir zum array + int dann verschieben wir in 4 bit in next 
@@ -99,6 +152,21 @@ int main()
         }                                // 4, 55, 79, 1, 4
     }
     /*lesson #48 Übergabe Parameter üner pointer in die Funktion*/
+    /*
+    * 
+    *           _________________________________________________________
+    * 
+    *                 | 0X00CF  |-------
+    *                 |   c = 0 |       |
+    *                       | ^         V       function
+    *                       | |      ----------------
+    *                       | |     |    int *pc    |
+    *                       | ------|-<--(*pc)  ++  |
+    *                       |        -----------^----
+                            |                   |  wird 0 ubergeben und dirch ++ verändert dann wird statesen 0 1.
+                            --------------------
+                ___________________________________________________________
+    */
     cout << endl << endl << "lesson #48" << endl;
     {
         int c = 0;
@@ -110,10 +178,11 @@ int main()
         cout << c << endl;  // 0
         Foo2(&c);   // &c adresse the variable c
         cout << c << endl;  // 1
+    }
 
-        /*lesson #49 Übergabe mehreren Parametern üner pointer in die Funktion*/
+        /*lesson #49 Übergabe mehreren Parametern üner pointer aus die Funktion*/
         cout << endl << endl << "lesson #48" << endl;
-
+    {
         int d = 0, e = 0, f = 1;
         cout << "d = " << d << endl;    // 0
         cout << "e = " << e << endl;    // 0
@@ -122,25 +191,31 @@ int main()
         cout << "function Foo" << endl;
         Foo3(&d, &e, &f);   // the adresses variabes d, e, f
 
-        cout << "d = " << d << endl;
-        cout << "e = " << e << endl;
-        cout << "f = " << f << endl;
+        cout << "d = " << d << endl;    // 555
+        cout << "e = " << e << endl;    // 1
+        cout << "f = " << f << endl;    // -20
     }
     /*lesson #50 referenc*/
     /*      
-    *       *pd<----------------|0x0010c|   *&dRef<----------------|0x0010c|
+    *       *pd<----------------|0x0010c|    &dRef<----------------|0x0010c|                        
     *                           | d = 5 |                          | d = 5 |
-    *       -> durch Referenc wir arbeitet direct mit den Zahlen
+    *       -> durch Referenc wir arbeitet direct mit den Werten
     *       -> Referenc kann keine NULL, 0, nullptr type Daten sein 
+    *               
+    *                                                    | 0X00AF |------> *ppd     
+    *                                   | 0X000CF |----->|  dRef  |
+    *                                   |  d = 5  |
      */
     cout << endl << endl << "lesson #50" << endl;
     {
         int d = 5;
-        int* pd = &d;   // & -> Adress von Variable
+        int* pd = &d;   // so wird pointer defeniert & -> Adress von Variable
+
         cout << "pd\t" << pd << endl;  // 012FFBE0 Adress
         cout << "*pd\t" << *pd << endl; // 5 
+
         int& dRef = d;   // Referenc Adress von variable ->  referenc  muss initilisiert sein
-        cout << "&dRef\t" << dRef << endl;  // 5 die Referenc arbeiten gleich mit dem Zahl
+        cout << "&dRef\t" << dRef << endl;  // 5 die Referenc arbeiten gleich mit dem Wert
 
         cout << "pd\t" << pd << endl;   // 00AFF964
         pd++;   // pointer type int wird verschoben nach 4 bit 
@@ -235,6 +310,34 @@ int main()
 
         delete pg;  // löscht den markirten Speicher also muss immer gemacht werden nach dem new, sonst irgent wann gibt keine Speicherplatz mehr
                     // wir habe die Werte gelöscht ober poiner zeigt immer noch auf die Speicher, jetz kann andere Programm in dieses Adresse reinschreiben
+
+    }
+
+    /* lesson #54 NULL and nullptr */
+    {
+        cout << endl << endl << "lesson #54" << endl;
+
+        int* pz = new int;
+        *pz = 10;
+        cout << *pz << endl;
+        delete pz;
+
+        pz = NULL;  // ist Macros und ist gleich pz = 0;
+        if (pz != NULL) // Überprüfen ob die Adresse geloscht wurde
+        {
+            cout << pz << endl;
+        }
+
+        delete pz;          // zerst delete pz dann pz = nullptr wenn anders rum dann hast du keine adresse wo ligen daten leak memory.
+                            //          
+        pz = nullptr        //
+                            //
+        if (pz != nullptr) // ist Sicher
+        {
+            cout << pz << endl;
+        }
+        cout << pz << endl;
+        delete pz;
 
     }
 

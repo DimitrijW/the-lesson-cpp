@@ -1,0 +1,14 @@
+﻿  timestamp.cpp
+D:\Development\the-lesson-c++\timestamp\timestamp\timestamp.cpp(185,78): warning C4244: "=": Konvertierung von "_Rep" in "long double", möglicher Datenverlust
+          with
+          [
+              _Rep=__int64
+          ]
+D:\Development\the-lesson-c++\timestamp\timestamp\timestamp.cpp(213,84): warning C4244: "=": Konvertierung von "_Rep" in "long double", möglicher Datenverlust
+          with
+          [
+              _Rep=__int64
+          ]
+D:\Development\the-lesson-c++\timestamp\timestamp\timestamp.cpp(167,34): warning C4101: "minTime_1": Unreferenzierte lokale Variable
+D:\Development\the-lesson-c++\timestamp\timestamp\timestamp.cpp(167,45): warning C4101: "maxTime_1": Unreferenzierte lokale Variable
+  timestamp.vcxproj -> D:\Development\the-lesson-c++\timestamp\Debug\timestamp.exe
