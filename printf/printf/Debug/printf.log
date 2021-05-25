@@ -1,0 +1,11 @@
+﻿  printf.cpp
+D:\Development\printf\printf\printf.cpp(11,12): warning C4477: "printf": Die Formatzeichenfolge "%ld" erfordert ein Argument vom Typ "long", das variadic-Argument "1" weist aber den Typ "unsigned __int64" auf.
+D:\Development\printf\printf\printf.cpp(11,12): message : Verwenden Sie ggf. "%lld" in der Formatzeichenfolge.
+D:\Development\printf\printf\printf.cpp(11,12): message : Verwenden Sie ggf. "%I64d" in der Formatzeichenfolge.
+D:\Development\printf\printf\printf.cpp(12,12): warning C4477: "printf": Die Formatzeichenfolge "%8lu" erfordert ein Argument vom Typ "unsigned long", das variadic-Argument "1" weist aber den Typ "unsigned __int64" auf.
+D:\Development\printf\printf\printf.cpp(12,12): message : Verwenden Sie ggf. "%llu" in der Formatzeichenfolge.
+D:\Development\printf\printf\printf.cpp(12,12): message : Verwenden Sie ggf. "%I64u" in der Formatzeichenfolge.
+D:\Development\printf\printf\printf.cpp(13,12): warning C4477: "printf": Die Formatzeichenfolge "%u" erfordert ein Argument vom Typ "unsigned int", das variadic-Argument "1" weist aber den Typ "unsigned __int64" auf.
+D:\Development\printf\printf\printf.cpp(13,12): message : Verwenden Sie ggf. "%llu" in der Formatzeichenfolge.
+D:\Development\printf\printf\printf.cpp(13,12): message : Verwenden Sie ggf. "%I64u" in der Formatzeichenfolge.
+  printf.vcxproj -> D:\Development\printf\Debug\printf.exe
